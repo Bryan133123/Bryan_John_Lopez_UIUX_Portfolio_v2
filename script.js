@@ -1,4 +1,8 @@
-const $ = s => document.querySelector(s),
+//$ is an arrow-function helper that accepts a CSS selector and returns the first matching DOM element using document.querySelector().
+// I used it to make DOM selection shorter and easier to read.
+//The $ symbol is commonly associated with jQuery, but in my code it is just a custom variable name. I'm using native JavaScript's document.querySelector(),
+// so jQuery is not required.
+const $ = s => document.querySelector(s), 
   $$ = s => document.querySelectorAll(s)
 const header = $('.header')
 window.addEventListener(
@@ -14,6 +18,9 @@ $$('.nav a').forEach(a =>
   a.addEventListener('click', () => nav.classList.remove('open'))
 )
 
+//I used IntersectionObserver to detect when elements enter the viewport.
+// Once an element becomes visible, I add the show class, which triggers the CSS transition.
+// I also call unobserve() so the animation only needs to be triggered once.
 const obs = new IntersectionObserver(
   es =>
     es.forEach(e => {
@@ -32,6 +39,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 const dot = $('.cursor-dot'),
   ring = $('.cursor-ring')
+  // I put media query to check if the device has a fine pointer (like a mouse) before adding the mousemove event listener. This way, the custom cursor will only be shown on devices that support it, and it won't interfere with touch devices.
 if (matchMedia('(pointer:fine)').matches) {
   document.addEventListener('mousemove', e => {
     dot.style.left = e.clientX + 'px'
